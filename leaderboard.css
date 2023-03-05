@@ -1,0 +1,29 @@
+body {
+  background-color: #8bb634;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+#playersStats {
+  background-color: #3f5e5a;
+  border-radius: 10px;
+}
+
+#playerStats,
+.columnNames {
+  color: white;
+  font-size: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  margin: auto;
+}
+
+.columnNames {
+  margin-bottom: 30px;
+}
