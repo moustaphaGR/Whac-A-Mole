@@ -3,14 +3,47 @@ $(document).ready(function () {
   var $scoreBoard = $("#score");
   var $timeBoard = $("#time");
   var score = 0;
-  var timer = 15;
+  var timer;
   var gameInterval;
   var moleInterval;
   var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  var setIntervalNumber;
+  var setTimeoutNumber;
+  var playerName;
+  var difficultyValue;
+  var difficulty = $("#difficulty");
+
+  difficulty.on("change", () => {
+    difficultyValue = difficulty.val();
+
+    switch (difficultyValue) {
+      case "easy":
+        setIntervalNumber = 1500;
+        setTimeoutNumber = 1000;
+        timer = 25;
+        break;
+      case "normal":
+        setIntervalNumber = 800;
+        setTimeoutNumber = 500;
+        timer = 15;
+        break;
+      case "hard":
+        setIntervalNumber = 500;
+        setTimeoutNumber = 450;
+        timer = 10;
+        break;
+      default:
+        break;
+    }
+  });
 
   $timeBoard.text(timer);
 
   $("#start").on("click", function () {
+    if (difficulty.val() == "") {
+      alert("Don't forget to select difficulty of the game!");
+      return;
+    }
     playerName = prompt("Please enter your name:");
     if (playerName) {
       resetGame();
@@ -22,7 +55,7 @@ $(document).ready(function () {
     stopGame();
   });
 
-  $("#leaderBoard").on("click", function () {
+  $("#leaderBoard>button").on("click", function () {
     window.open("leaderboard.html", "", "width=800, height=600");
   });
 
@@ -37,6 +70,10 @@ $(document).ready(function () {
   }
 
   function startGame() {
+    if (difficulty.val() == "") {
+      alert("don't forget to select difficulty of the game!");
+      return;
+    }
     gameInterval = setInterval(function () {
       gameTime--;
       $timeBoard.text(gameTime);
@@ -61,12 +98,15 @@ $(document).ready(function () {
         // Mole timeout
         setTimeout(function () {
           $mole.remove();
-        }, 1500);
+        }, setTimeoutNumber);
       }
-    }, 800);
+    }, setIntervalNumber);
   }
 
   function stopGame() {
+    if (!playerName) {
+      return;
+    }
     clearInterval(gameInterval);
     clearInterval(moleInterval);
     alert("Game Over! Your score is " + score);

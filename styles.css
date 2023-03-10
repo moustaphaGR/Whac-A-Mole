@@ -21,12 +21,24 @@ h1 {
   align-items: center;
 }
 
+button {
+  cursor: pointer;
+}
+
+select {
+  cursor: pointer;
+}
+
 #leaderBoard > button {
   background-color: #9ec136;
   color: white;
   font-weight: bold;
   border: 1px solid black;
   border-radius: 10px;
+}
+
+#leaderBoard > button:hover {
+  background-color: #2f4858;
 }
 
 .buttons {
